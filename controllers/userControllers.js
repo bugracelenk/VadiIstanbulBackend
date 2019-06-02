@@ -20,13 +20,14 @@ exports.createNewUser = function(req, res) {
   //   console.log(User.checkEmail(authData.email))
   //
   // }
-
+  console.log(req.body)
   User.checkEmail(authData.email, function(err, email) {
     if (err) {
       console.log(err);
       return res.send(err);
     } else {
       if (!email) {
+        console.log(email)
         return res
           .status(406)
           .json({ message: "This email is already taken " });
@@ -73,9 +74,9 @@ exports.loginUser = function(req, res) {
                 else {
                   token = jwt.sign(
                     {
-                      id: userData.id,
-                      email: userData.email,
-                      profileId: userData.profile_id
+                      id: userData[0].id,
+                      email: userData[0].email,
+                      profileId: userData[0].profile_id
                     },
                     "secret",
                     { expiresIn: "1h" }
@@ -93,3 +94,15 @@ exports.loginUser = function(req, res) {
 };
 
 // else return res.status(404).json({ message: "Auth Failed" });
+
+exports.updateProfile = (req, res) => {
+  User.updateProfile(
+    req.body.updateData,
+    req.userData.profileId,
+    (err, result) => {
+      if (err)
+        return res.status(500).json({ err });
+      if (err == null && result) return res.status(200).json({ message: "Update Success"});
+    }
+  );
+};

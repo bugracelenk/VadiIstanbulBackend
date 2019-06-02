@@ -63,8 +63,7 @@ exports.checkEmail = function(email, result) {
   ) {
     if (err) result(err, null);
     else {
-      if (res.email) result(null, true);
-      else result(null, false);
+      result(null, false)
     }
   });
 };
@@ -76,4 +75,24 @@ exports.getUserData = function(email, result) {
       if (res) result(null, res);
     }
   });
+};
+
+exports.updateProfile = (updateData, id, result) => {
+  try {
+    for (const ops of updateData) {
+      sql.query(
+        `UPDATE profiles SET ${ops.propName} = ? WHERE id = ${id}`,
+        [ops.value],
+        (err, res) => {
+          if (err) return result(err, null);
+          console.log(res);
+        }
+      );
+      console.log(ops.propName, ops.value, id);
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    result(null, true);
+  }
 };
