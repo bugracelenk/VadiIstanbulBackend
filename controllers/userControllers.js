@@ -76,7 +76,8 @@ exports.loginUser = function(req, res) {
                     {
                       id: userData[0].id,
                       email: userData[0].email,
-                      profileId: userData[0].profile_id
+                      profileId: userData[0].profile_id,
+                      isSaler: userData[0].is_saler
                     },
                     "secret",
                     { expiresIn: "1h" }

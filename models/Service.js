@@ -20,3 +20,10 @@ exports.createService = (serviceData, result) => {
     else result(null, res);
   });
 };
+
+exports.getSalerId = (id, result) => {
+  sql.query("SELECT saler_id FROM services WHERE id = ?", [id], (err, res) => {
+    if (err) result(err, null);
+    else result(null, res);
+  });
+};

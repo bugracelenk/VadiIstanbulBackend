@@ -8,6 +8,6 @@ const checkSaler = require("../middlewares/check_saler");
 router
   .get("/", servicesControllers.getServices)
   .get("/:serviceId", servicesControllers.getService)
-  .post("/", checkAuth, checkSaler,servicesControllers.createService)
+  .post("/", checkAuth, checkSaler, servicesControllers.createService);
 
 module.exports = router;

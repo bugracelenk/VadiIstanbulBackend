@@ -7,6 +7,7 @@ const mysql = require("mysql");
 //importing routes
 
 const userRoutes = require("./routes/users");
+const serviceRoutes = require("./routes/services");
 
 port = process.env.PORT || 3010;
 
@@ -42,3 +43,4 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/users", userRoutes);
+app.use("/api/services", serviceRoutes);
